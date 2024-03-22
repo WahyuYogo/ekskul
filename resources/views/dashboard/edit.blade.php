@@ -19,16 +19,14 @@
                 <label for="ekskul" class="col-form-label">Nama Ekstrakulikuler</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="ekskul" name="ekskul">
-                        <option value="" disabled selected>Pilih Ulang Ekstrakulikuler</option>
-                        <option value="osis">Osis</option>
-                        <option value="pramuka">Pramuka</option>
-                        <option value="voli">Voli</option>
+                        <option value="{{ $user->name }}">{{ $user->name }}</option>
                     </select>
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="gambar" class="col-form-label">Masukkan Kembali Gambar</label>
+                <label for="gambar" class="col-form-label">Edit Gambar</label>
                 <div class="col-sm-10">
+                    <img src="{{$data->gambar}}" alt="" class="img-fluid rounded mb-2" style="width: 200px">
                     <input type="file" class="form-control" name='gambar' value="{{$data->gambar}}" id="gambar">
                 </div>
             </div>
@@ -39,7 +37,7 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <div class="col-sm-10"><a href="{{url('dashboard')}}" class="btn btn-danger me-3">KEMBALI</a><button type="submit" class="btn btn-primary" name="submit">SIMPAN</button></div>
+                <div class="col-sm-10"><a href="{{url('users')}}" class="btn btn-danger me-3">KEMBALI</a><button type="submit" class="btn btn-primary" name="submit">SIMPAN</button></div>
             </div>
         </div>
     </form>

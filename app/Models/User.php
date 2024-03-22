@@ -17,6 +17,11 @@ class User extends Authenticatable
         return $this->hasOne(profil::class);
     }
 
+    // public function posts()
+    // {
+    //     return $this->hasMany(Posts::class);
+    // }
+
 
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 

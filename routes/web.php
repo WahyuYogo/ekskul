@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [EkskulController::class, 'index'])->name('landingpage.index');
-Route::get('/ekskul/junalistik', [EkskulController::class, 'junalistik'])->name('ekskul.junalistik');
+Route::get('/ekskul/{id}', [EkskulController::class, 'show'])->name('ekskul.show');
 
 Route::get('/login', [loginController::class, 'index'])->name('login');
 Route::post('/admin-login', [loginController::class, 'admin_login'])->name('admin-login');
@@ -36,9 +36,9 @@ Route::get('/logout', [loginController::class, 'logout'])->name('logout');
 //     Route::patch('/dashboard/{id}', [PostController::class, 'update'])->name('dashboard.update');
 //     Route::get('/filter-posts', [PostController::class, 'filter'])->name('posts.filter');
 // });
+Route::resource('dashboard', postController::class);
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
-    Route::resource('dashboard', postController::class);
     Route::get('/dashboard/{id}/edit', [PostController::class, 'edit'])->name('dashboard.edit');
     Route::patch('/dashboard/{id}', [PostController::class, 'update'])->name('dashboard.update');
     Route::get('/filter-posts', [PostController::class, 'filter'])->name('posts.filter');

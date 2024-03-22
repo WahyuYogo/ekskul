@@ -17,10 +17,9 @@ class postController extends Controller
     {
         $data = Posts::orderBy('ekskul', 'desc')->paginate(5);
         $ekskul = $request->input('ekskul', 'osis');
-        $category = Category::all();
         $posts = Posts::where('ekskul', $ekskul)->get();
         $users = User::all();
-        return view('dashboard.index', compact('posts', 'ekskul', 'category', 'users'));
+        return view('dashboard.index', compact('posts', 'ekskul', 'users'));
     }
 
     public function filter(Request $request)
@@ -34,8 +33,8 @@ class postController extends Controller
      */
     public function create()
     {
-        $category = Category::all();
-        return view('dashboard.posts', compact('category'));
+        $user = auth()->user();
+        return view('dashboard.posts', compact('user'));
     }
 
     /**
@@ -62,7 +61,7 @@ class postController extends Controller
         $post->save();
 
 
-        return redirect()->route('dashboard.index')->with('success', 'Post berhasil diunggah.');
+        return redirect()->route('user.index')->with('success', 'Post berhasil diunggah.');
     }
 
     /**
@@ -78,8 +77,9 @@ class postController extends Controller
      */
     public function edit(string $id)
     {
+        $user = auth()->user();
         $post = Posts::where('id', $id)->first();
-        return view('dashboard.edit')->with('data', $post);
+        return view('dashboard.edit', compact('user'))->with('data', $post);
     }
 
     /**
@@ -105,7 +105,7 @@ class postController extends Controller
         $post->ekskul = $request->ekskul;
         $post->save();
 
-        return redirect()->route('dashboard.index')->with('success', 'Post berhasil diperbarui.');
+        return redirect()->route('user.index')->with('success', 'Post berhasil diperbarui.');
     
     }
 
@@ -115,6 +115,6 @@ class postController extends Controller
     public function destroy(string $id)
     {
         Posts::where('id', $id)->delete();
-        return redirect()->route('dashboard.index')->with('success', 'Post Berhasil di Hapus');
+        return redirect()->route('user.index')->with('success', 'Post Berhasil di Hapus');
     }
 }

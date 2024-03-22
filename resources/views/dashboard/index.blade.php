@@ -33,21 +33,14 @@
           </div>
         </div>
       </nav>
+
         <div class="my-3 p-3 bg-body rounded shadow-sm">
             <div class="pb-3">
                 <form action="{{ route('posts.filter') }}" method="GET">
                     <div class="form-group">
-                        <label for="ekskul">Pilih ekskul:</label>
-                        <select class="form-control" id="ekskul" name="ekskul">
-                            <option value="" disabled selected>Pilih Ekstrakulikuler</option>
-                            @foreach ($category as $item)
-                                <option value="{{$item->ekskul}}">{{$item->ekskul}}</option> 
-                            @endforeach
-                        </select>
                         <button type="submit" class="btn btn-primary my-3">Tampilkan Post</button>
                     </div>
                 </form>
-                
             </div>
     
             <table class="table table-striped">
@@ -79,37 +72,34 @@
                 </tbody>
             </table>
       </div>
+      <div class="bg-light rounded p-3 shadow-sm">
+          <h2>Daftar Akun Pengguna</h2>
+          
+          <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th>Nama</th>
+                      <th>Aksi</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @foreach($users as $user)
+                      <tr>
+                          <td>{{ $user->name }}</td>
+                          <td>
+                              <a href="{{ route('admin.edit_password', $user->id) }}" class="btn btn-primary btn-sm">Edit Password</a>
+                              <form class="d-inline" action="{{ route('admin.delete_account', $user->id) }}" method="POST">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="btn btn-danger btn-sm">Hapus Akun</button>
+                              </form>
+                          </td>
+                      </tr>
+                  @endforeach
+              </tbody>
+          </table>
+      </div>
 </div>
-<!-- resources/views/admin/dashboard.blade.php -->
 
-<h1>Dashboard Admin</h1>
-
-<h2>Daftar Akun Pengguna:</h2>
-
-<table>
-    <thead>
-        <tr>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($users as $user)
-            <tr>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>
-                    <a href="{{ route('admin.edit_password', $user->id) }}">Edit Password</a>
-                    <form action="{{ route('admin.delete_account', $user->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Hapus Akun</button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
 
 @endsection

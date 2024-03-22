@@ -12,6 +12,5 @@
     <h1 class="fs-4 fw-bold">Keuntungan</h1>
     <p>{{ $profils->keuntungan }}</p>
 </div>
-<a href='{{ route('user.index') }}' class="btn btn-danger">Kembali</a>
-<a href="{{ route('profile.edit') }}" class="btn btn-primary">Edit Profile</a>
+<a href='{{ url('/') }}' class="btn btn-danger">Kembali</a>
 @endsection

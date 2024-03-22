@@ -12,50 +12,19 @@
         </div>
 
         <div class="row row-cols-lg-4 g-3">
-            <div class="col position-relative">
-                <div class="card shadow-sm border-0 rounded">
-                    <a href="{{ route('ekskul.junalistik') }}">
-                        <img src="{{ asset('images/page/jurnalistik.png') }}" class="card-img-top" alt="...">
-                    </a>
-                    <div class="card-body">
-                      <h5 class="card-title text-center">Jurnalistik</h5>
+            {{-- @foreach ($profils as $item)
+            <h1>{{ $item->nama }}</h1>
+            @endforeach --}}
+            @foreach($profils as $item)
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $item->nama }}</h5>
+                                <a href="{{ route('ekskul.show', $users->id) }}" class="btn btn-primary">Lihat Profil</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="col position-relative">
-                <div class="card shadow-sm border-0 rounded">
-                    <a href="{{url('/pecintaalam')}}">
-                        <img src="{{ asset('images/page/pecintaalam.png') }}" class="card-img-top" alt="...">
-                    </a>
-                    <div class="card-body">
-                      <h5 class="card-title text-center">Pecinta Alam</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col position-relative">
-                <div class="card shadow-sm border-0 rounded">
-                    <a href="{{url('/pmr')}}">
-                        <img src="{{ asset('images/page/pmr.png') }}" class="card-img-top" alt="...">
-                    </a>
-                    <div class="card-body">
-                      <h5 class="card-title text-center">Palang Merah Remaja</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col position-relative">
-                <div class="card shadow-sm border-0 rounded">
-                    <a href="{{url('/pramuka')}}">
-                        <img src="{{ asset('images/page/pramuka.png') }}" class="card-img-top" alt="...">
-                    </a>
-                    <div class="card-body">
-                      <h5 class="card-title text-center">Pramuka</h5>
-                    </div>
-                </div>
-            </div>
-
+            @endforeach
         </div>
     </div>
 </section>

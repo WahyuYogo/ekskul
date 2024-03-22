@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Posts;
 use App\Models\profil;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
 
-    public function index(){
+    public function index(Request $request){
         $user = auth()->user();
         $profile = $user->profile;
-        // $profile = Profil::where('user_id', auth()->id())->firstOrFail();
-        return view('user.index', compact('user', 'profile'));
+        $users = Auth::user()->name;
+        $ekskul = $request->input('ekskul', $users);
+        $show = Posts::where('ekskul', $ekskul)->get();
+        $jumlah = $show->count();
+        return view('user.index', compact('user', 'profile', 'show', 'jumlah'));
     }
 
     public function show()
@@ -21,6 +26,7 @@ class ProfileController extends Controller
         $user = auth()->user();
         $profile = $user->profile;
         $profils = Profil::where('user_id', auth()->id())->firstOrFail();
+        // $users = User::findOrFail($id);
         return view('profile.show', compact('user', 'profile', 'profils'));
     }
 

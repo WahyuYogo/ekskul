@@ -18,10 +18,7 @@
                 <label for="ekskul" class="col-form-label">Nama Ekstrakulikuler</label>
                 <div class="col-sm-10">
                     <select class="form-control" id="ekskul" name="ekskul">
-                        <option value="" disabled selected>Pilih Ekstrakulikuler</option>
-                        @foreach ($category as $item)
-                        <option value="{{$item->ekskul}}">{{$item->ekskul}}</option> 
-                        @endforeach
+                        <option value="{{ $user->name }}">{{ $user->name }}</</option> 
                     </select>
                 </div>
             </div>
@@ -32,14 +29,14 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="judul" class="col-form-label">Deskripsi Post</label>
+                <label for="judul" class="col-form-label">Caption Post</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name='judul' id="judul">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="jurusan" class="col-form-label"></label>
-                <div class="col-sm-10"><a href="{{url('dashboard')}}" class="btn btn-danger me-3">KEMBALI</a><button type="submit" class="btn btn-primary" name="submit">SIMPAN</button></div>
+                <div class="col-sm-10"><a href="{{url('users')}}" class="btn btn-danger me-3">KEMBALI</a><button type="submit" class="btn btn-primary" name="submit">SIMPAN</button></div>
             </div>
         </div>
     </form>

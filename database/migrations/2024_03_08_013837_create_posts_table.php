@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->string('ekskul');
+            $table->string('judul');
+            $table->string('gambar')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,10 +28,3 @@ return new class extends Migration
         Schema::dropIfExists('posts');
     }
 };
-Schema::create('posts', function (Blueprint $table) {
-           $table->id();
-           $table->string('ekskul');
-           $table->string('judul');
-           $table->string('gambar')->nullable();
-           $table->timestamps();
-        });
