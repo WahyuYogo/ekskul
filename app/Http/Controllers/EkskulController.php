@@ -10,16 +10,22 @@ use Illuminate\Http\Request;
 class EkskulController extends Controller
 {
     public function index(){
-        $posts = Posts::all();
-        $profils = profil::all();
-        $users = User::has('profile')->get();
-        return view('landingpage.index', compact('users', 'posts', 'profils'));
+        $posts = Posts::latest()->limit(3)->get();
+        $profils = profil::latest()->limit(4)->get();
+        return view('landingpage.index', compact('posts', 'profils'));
     }
 
-    public function show($id)
+    public function show($name)
+    {  
+        $profils = profil::where('nama', $name)->firstOrfail();
+        $posts = Posts::where('ekskul', $profils->nama)->get();
+        return view('ekskul.show', compact('profils', 'posts'));
+    }
+
+    public function post($name)
     {
-        $user = User::findOrFail($id);
-        $profils = profil::where('user_id', $id)->firstOrFail();
-        return view('ekskul.show', compact('user', 'profils'));
+        $profils = profil::where('nama', $name)->firstOrfail();
+        $posts = Posts::where('ekskul', $profils->nama)->get();
+        return view('ekskul.post', compact('profils', 'posts'));
     }
 }

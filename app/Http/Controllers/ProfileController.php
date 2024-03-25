@@ -26,7 +26,6 @@ class ProfileController extends Controller
         $user = auth()->user();
         $profile = $user->profile;
         $profils = Profil::where('user_id', auth()->id())->firstOrFail();
-        // $users = User::findOrFail($id);
         return view('profile.show', compact('user', 'profile', 'profils'));
     }
 

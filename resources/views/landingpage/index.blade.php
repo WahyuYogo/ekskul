@@ -1,26 +1,46 @@
 @extends('layout.template')
 @extends('layout.navbar')
+
 @section('konten')
+@section('navbar')
 {{-- Carousel --}}
+<div class="container my-5">
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators rounded-circle">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{{ asset('images/1711078267.jpg') }}" class="d-block w-100 rounded h-50 object-fit-cover" alt="...">
+        </div>
+        <div class="carousel-item active">
+            <img src="{{ asset('images/1711079074.jpg') }}" class="d-block w-100 rounded h-50 object-fit-cover" alt="...">
+        </div>
+        <div class="carousel-item active">
+            <img src="{{ asset('images/1711079586.jpg') }}" class="d-block w-100 rounded h-50 object-fit-cover" alt="...">
+        </div>
+        </div>
+    </div>
+</div>
 {{-- Carousel End --}}
 
 {{-- Ekstrakulikuler --}}
 <section>
     <div class="container">
-        <div class="text-dark my-4">
+        <div class="text-dark my-5 d-flex align-items-center">
             <h3 class="fw-bold">Ekstrakulikuler</h3>
+            <a href="{{ url('/ekskul') }}" class="fs-5 ms-auto text-dark">Lihat Semua >></a>
         </div>
 
         <div class="row row-cols-lg-4 g-3">
-            {{-- @foreach ($profils as $item)
-            <h1>{{ $item->nama }}</h1>
-            @endforeach --}}
             @foreach($profils as $item)
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
+                    <div class="col-6 mb-4 text-center">
+                        <div class="card border-0">
+                            <a href="{{ route('ekskul.show', $item->nama) }}"><img src="{{ $item->foto }}" alt="" class="img-fluid rounded"></a>
                             <div class="card-body">
-                                <h5 class="card-title">{{ $item->nama }}</h5>
-                                <a href="{{ route('ekskul.show', $users->id) }}" class="btn btn-primary">Lihat Profil</a>
+                                <h5 class="card-title fw-bold">{{ $item->nama }}</h5>
                             </div>
                         </div>
                     </div>
@@ -33,37 +53,24 @@
 {{-- Kegiatan Terbaru --}}
 <section>
     <div class="container py-5">
-        <div class="text-dark my-4">
-            <h3 class="fw-bold">Kegiatan Terbaru</h3>
+        <div class="text-dark my-5 d-flex align-items-center">
+            <h3 class="fw-bold">Postingan Terbaru</h3>
+            <a href="{{ url('/posting') }}" class="fs-5 ms-auto text-dark">Lihat Semua >></a>
         </div>
-        <div class="row row-cols-2">
-            {{-- @foreach ($data as $post)
-            <button type="button" class="btn btn-transparent" data-bs-toggle="modal" data-bs-target="#{{ $post->id }}">
-                <div class="col">
-                    <img src="{{ $post->gambar }}" class="img-fluid rounded" alt="">
-                </div>
-            </button>
-            <div class="modal fade" id="{{ $post->id }}" tabindex="-1" aria-labelledby="fullImageModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-xl">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="fullImageModalLabel">{{ $post->judul }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <img src="{{ $post->gambar }}" class="img-fluid" alt="Gambar Penuh">
-                        </div>
+        <div class="row row-cols-lg-2">
+            @foreach ($posts as $item)
+            <div class="col-12 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <img src="{{ $item->gambar }}" class="img-fluid rounded object-fit-cover" style="height: 300px" alt="...">
+                    <div class="card-body">
+                    <p class="card-title text-secondary">{{ $item->ekskul }}</p>
+                    <p class="card-text fw-bold fs-5">{{ $item->judul }}</p>
                     </div>
                 </div>
             </div>
-            @endforeach --}}
+            @endforeach
         </div>
     </div>
 </section>
-
-{{-- Kegiatan Terbaru End --}}
-
-{{-- Recruitment --}}
-{{-- Recruitment End --}}
-
+    
 @endsection

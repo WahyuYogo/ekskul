@@ -23,7 +23,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [EkskulController::class, 'index'])->name('landingpage.index');
-Route::get('/ekskul/{id}', [EkskulController::class, 'show'])->name('ekskul.show');
+Route::get('/ekskul/{name}', [EkskulController::class, 'show'])->name('ekskul.show');
+Route::get('/ekskul/{name}/postingan', [EkskulController::class, 'post'])->name('ekskul.post');
 
 Route::get('/login', [loginController::class, 'index'])->name('login');
 Route::post('/admin-login', [loginController::class, 'admin_login'])->name('admin-login');
