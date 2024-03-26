@@ -4,7 +4,7 @@
 @section('konten')
 @section('navbar')
 
-<div class="mx-5 px-2 my-5">
+<div class="mx-5 px-2 my-5 position-relative">
     <h1 class="fs-2 fw-bold text-center my-4">Postingan</h1>
     <div class="row row-cols-lg-2">
         @foreach ($posts as $item)
@@ -19,6 +19,7 @@
         </div>
         @endforeach
     </div>
+    <a href='{{ route('ekskul.show', $item->ekskul) }}' class="btn position-absolute top-0 start-0 translate-middle"><i class="bi bi-arrow-left-square-fill fs-1 text-dark"></i></a>
 </div>
     
 @endsection

@@ -19,7 +19,6 @@
         <div class="mb-3">
             <label class="form-label" for="foto">Foto Profil</label>
             <input class="form-control" type="file" name="foto" id="foto" value="{{ $profile->foto }}">
-            <img src="{{ $profile->foto }}" alt="" style="max-width: 150px">
         </div>
         
         <div class="mb-3">

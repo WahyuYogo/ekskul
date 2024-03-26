@@ -31,7 +31,7 @@
     <div class="container">
         <div class="text-dark my-5 d-flex align-items-center">
             <h3 class="fw-bold">Ekstrakulikuler</h3>
-            <a href="{{ url('/ekskul') }}" class="fs-5 ms-auto text-dark">Lihat Semua >></a>
+            <a href="{{ route('ekskul.lihatekskul') }}" class="fs-5 ms-auto text-dark">Lihat Semua >></a>
         </div>
 
         <div class="row row-cols-lg-4 g-3">
@@ -50,12 +50,12 @@
 </section>
 {{-- Ekstrakulikuler End --}}
 
-{{-- Kegiatan Terbaru --}}
+{{-- Postingan Terbaru --}}
 <section>
     <div class="container py-5">
         <div class="text-dark my-5 d-flex align-items-center">
             <h3 class="fw-bold">Postingan Terbaru</h3>
-            <a href="{{ url('/posting') }}" class="fs-5 ms-auto text-dark">Lihat Semua >></a>
+            <a href="{{ route('ekskul.lihatpost') }}" class="fs-5 ms-auto text-dark">Lihat Semua >></a>
         </div>
         <div class="row row-cols-lg-2">
             @foreach ($posts as $item)

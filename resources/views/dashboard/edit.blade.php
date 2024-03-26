@@ -26,7 +26,6 @@
             <div class="mb-3 row">
                 <label for="gambar" class="col-form-label">Edit Gambar</label>
                 <div class="col-sm-10">
-                    <img src="{{$data->gambar}}" alt="" class="img-fluid rounded mb-2" style="width: 200px">
                     <input type="file" class="form-control" name='gambar' value="{{$data->gambar}}" id="gambar">
                 </div>
             </div>

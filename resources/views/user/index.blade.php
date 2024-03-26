@@ -20,13 +20,13 @@
                     @else
                         <li><a href="{{ route('profile.show') }}" class="dropdown-item border-bottom">Lihat Profile</a></li>
                     @endif
-                    @if ($user->profile)
+                    {{-- @if ($user->profile)
                         <form action="{{ route('profile.delete') }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger m-3">Hapus Profil</button>
                         </form>
-                    @endif
+                    @endif --}}
                 </ul>
               </div>
           </li>
@@ -49,9 +49,9 @@
         </div>
     @endif
 
-    <div class="bg-light rounded p-3 mb-3">
-        <a href='{{ url('dashboard/create') }}' class="btn btn-primary me-auto">Buat Post</a>
-        <p class="ms-auto">Jumlah Post {{ $jumlah }}</p>
+    <div class="bg-light rounded p-3 mb-3 d-flex align-items-center">
+        <a href='{{ url('dashboard/create') }}' class="btn btn-primary">Buat Post</a>
+        <p class="ms-auto fs-5 fw-bold">Jumlah Post {{ $jumlah }}</p>
     </div>
     <div class="row row-cols-lg-4 g-1">
         @foreach ($show as $item)
@@ -62,11 +62,28 @@
                   <p class="card-title text-secondary">{{ $item->ekskul }}</p>
                   <p class="card-text fw-bold fs-5">{{ $item->judul }}</p>
                   <a href='{{url('dashboard/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm text-white">Edit</a>
+                  <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Hapus</button>
                   <form class="d-inline" action="{{url('dashboard/'.$item->id)}}" method="POST">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" name="submit" class="btn btn-danger btn-sm">Hapus</button>
-                  </form>
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus Post</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Apakah Anda yakin ingin menghapus post ini?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" name="submit"  class="btn btn-danger">Hapus</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                    
+                    </form>
                 </div>
             </div>
         </div>

@@ -16,16 +16,9 @@ class postController extends Controller
     public function index(Request $request)
     {
         $data = Posts::orderBy('ekskul', 'desc')->paginate(5);
-        $ekskul = $request->input('ekskul', 'osis');
-        $posts = Posts::where('ekskul', $ekskul)->get();
+        $posts = Posts::all();
         $users = User::all();
-        return view('dashboard.index', compact('posts', 'ekskul', 'users'));
-    }
-
-    public function filter(Request $request)
-    {
-        $ekskul = $request->input('ekskul');
-        return redirect()->route('dashboard.index', ['ekskul' => $ekskul]);
+        return view('dashboard.index', compact('posts', 'users'));
     }
 
     /**

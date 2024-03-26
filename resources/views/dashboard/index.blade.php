@@ -22,7 +22,6 @@
                       Admin
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a href='{{ url('dashboard/create') }}' class="dropdown-item">Buat Post</a></li>
                       <li><a href='{{ url('register') }}' class="dropdown-item">Tambah Ekskul</a></li>
                     </ul>
                   </div>
@@ -35,13 +34,6 @@
       </nav>
 
         <div class="my-3 p-3 bg-body rounded shadow-sm">
-            <div class="pb-3">
-                <form action="{{ route('posts.filter') }}" method="GET">
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary my-3">Tampilkan Post</button>
-                    </div>
-                </form>
-            </div>
     
             <table class="table table-striped">
                 <thead>
