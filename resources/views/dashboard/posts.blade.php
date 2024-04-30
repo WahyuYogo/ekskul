@@ -8,17 +8,16 @@
         @endforeach
     </div>
 </div>
-    
+
 @endif
 <div class="container">
     <form action='{{ route('dashboard.index') }}' method='post' enctype="multipart/form-data">
         @csrf
         <div class="my-3 p-3 bg-body rounded shadow-sm">
             <div class="mb-3 row">
-                <label for="ekskul" class="col-form-label">Nama Ekstrakulikuler</label>
-                <div class="col-sm-10">
+                <div class="col-sm-10 d-none">
                     <select class="form-control" id="ekskul" name="ekskul">
-                        <option value="{{ $user->name }}">{{ $user->name }}</</option> 
+                        <option value="{{ $user->name }}">{{ $user->name }}</</option>
                     </select>
                 </div>
             </div>

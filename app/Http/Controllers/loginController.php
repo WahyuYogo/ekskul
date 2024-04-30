@@ -23,17 +23,17 @@ class loginController extends Controller
         ]);
 
         $infologin = $request->only('email', 'password');
-        
+
         if (Auth::attempt($infologin)) {
             if (Auth::user()->hasRole('admin')) {
-                return redirect()->route('dashboard.index');
+                return redirect()->route('admin');
             } else {
                 return redirect()->route('user.index');
             }
-            return redirect()->back()->with('failed', 'Email atau Password Salah');
         }
+        return redirect()->route('login')->with('failed', 'Email atau Password Salah');
     }
-    
+
 
 
     public function logout(){

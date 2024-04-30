@@ -11,13 +11,13 @@ class AdminDashboardController extends Controller
     public function editPassword($id)
     {
         $user = User::findOrFail($id);
-        return view('admin.edit_password', compact('user'));
+        return view('dashboard.password', compact('user'));
     }
 
     public function updatePassword(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        
+
         $request->validate([
             'password' => 'required|string|min:8|confirmed',
         ]);

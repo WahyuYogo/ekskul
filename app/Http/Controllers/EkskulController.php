@@ -12,13 +12,13 @@ class EkskulController extends Controller
 {
     public function index()
     {
-        $posts = Posts::latest()->limit(3)->get();
+        $posts = Posts::latest()->limit(4)->get();
         $profils = profil::latest()->limit(4)->get();
         return view('landingpage.index', compact('posts', 'profils'));
     }
 
     public function show($name)
-    {  
+    {
         $profils = profil::where('nama', $name)->firstOrfail();
         $posts = Posts::where('ekskul', $profils->nama)->get();
         return view('ekskul.show', compact('profils', 'posts'));

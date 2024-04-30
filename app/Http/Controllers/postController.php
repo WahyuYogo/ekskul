@@ -16,7 +16,7 @@ class postController extends Controller
     public function index(Request $request)
     {
         $data = Posts::orderBy('ekskul', 'desc')->paginate(5);
-        $posts = Posts::all();
+        $posts = Posts::paginate(8);
         $users = User::all();
         return view('dashboard.index', compact('posts', 'users'));
     }
@@ -44,7 +44,7 @@ class postController extends Controller
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:4048',
         ]);
 
-        $imageName = time() . '.' . $request->gambar->extension();  
+        $imageName = time() . '.' . $request->gambar->extension();
         $request->gambar->move(public_path('images'), $imageName);
 
         $post = new Posts;
@@ -89,7 +89,7 @@ class postController extends Controller
         $post = Posts::findOrFail($id);
 
         if ($request->hasFile('gambar')) {
-            $imageName = time() . '.' . $request->gambar->extension();  
+            $imageName = time() . '.' . $request->gambar->extension();
             $request->gambar->move(public_path('images'), $imageName);
             $post->gambar = '/images/' . $imageName;
         }
@@ -99,7 +99,7 @@ class postController extends Controller
         $post->save();
 
         return redirect()->route('user.index')->with('success', 'Post berhasil diperbarui.');
-    
+
     }
 
     /**

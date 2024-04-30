@@ -45,11 +45,11 @@ class ProfileController extends Controller
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama' => 'required|string|max:255',
             'tujuan' => 'required|string',
-            'keuntungan' => 'required|string',
+            'link' => 'nullable|string',
             'warna' => 'required|string|max:7',
         ]);
 
-        $photoPath = time() . '.' . $request->foto->extension();  
+        $photoPath = time() . '.' . $request->foto->extension();
         $request->foto->move(public_path('images'), $photoPath);
         $foto = '/images/' . $photoPath;
 
@@ -59,6 +59,7 @@ class ProfileController extends Controller
             'nama' => $request->nama,
             'tujuan' => $request->tujuan,
             'keuntungan' => $request->keuntungan,
+            'link' => $request->link,
             'warna' => $request->warna,
         ]);
 
@@ -81,6 +82,7 @@ class ProfileController extends Controller
             'nama' => 'required|string|max:255',
             'tujuan' => 'required|string',
             'keuntungan' => 'required|string',
+            'link' => 'nullable|string',
             'warna' => 'required|string|max:7',
         ]);
 
@@ -88,10 +90,11 @@ class ProfileController extends Controller
         $profile->nama = $request->nama;
         $profile->tujuan = $request->tujuan;
         $profile->keuntungan = $request->keuntungan;
+        $profile->link = $request->link;
         $profile->warna = $request->warna;
 
         if ($request->hasFile('foto')) {
-            $imageName = time() . '.' . $request->foto->extension();  
+            $imageName = time() . '.' . $request->foto->extension();
             $request->foto->move(public_path('images'), $imageName);
             $profile->foto = '/images/' . $imageName;
         }

@@ -7,7 +7,7 @@
     <div class="container-fluid" style="height: 150px; background-color:{{ $profils->warna }};"></div>
     <div class="container position-relative pt-5">
         <img src="{{ asset($profils->foto) }}" alt="" class="rounded-circle img-fluid position-absolute top-0 start-0 translate-middle-y" style="max-width: 150px">
-        <h1 class="fw-bold fs-2 my-3">{{ $profils->nama }}</h1>
+        <h1 class="fw-bold fs-2 mb-3 mt-5">{{ $profils->nama }}</h1>
         <div class="bg-light rounded p-3 my-3">
             <h1 class="fs-4 fw-bold">Tujuan</h1>
             <p>{{ $profils->tujuan }}</p>
@@ -17,6 +17,7 @@
             <p>{{ $profils->keuntungan }}</p>
         </div>
     </div>
+    <a href='{{ $profils->link }}' class="btn position-absolute top-0 end-0 mt-4 me-5"><i class="bi bi-instagram fs-1"></i></a>
     <a href='{{ url('/') }}' class="btn position-absolute top-0 start-0 mt-3 ms-3"><i class="bi bi-arrow-left-square-fill fs-1 text-light"></i></a>
 </div>
 
@@ -26,7 +27,7 @@
         @foreach ($posts as $item)
         <div class="col-12 mb-4">
             <div class="card border-0 shadow-sm">
-                <img src="{{ $item->gambar }}" class="img-fluid rounded" style="height: 300px" alt="...">
+                <img src="{{ $item->gambar }}" class="img-fluid rounded object-fit-cover" style="height: 300px" alt="...">
                 <div class="card-body">
                 <p class="card-title text-secondary">{{ $item->ekskul }}</p>
                 <p class="card-text fw-bold fs-5">{{ $item->judul }}</p>

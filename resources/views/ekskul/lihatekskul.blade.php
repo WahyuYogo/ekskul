@@ -15,7 +15,7 @@
             @foreach($profils as $item)
                     <div class="col-6 mb-4 text-center">
                         <div class="card border-0">
-                            <a href="{{ route('ekskul.show', $item->nama) }}"><img src="{{ $item->foto }}" alt="" class="img-fluid rounded"></a>
+                            <a href="{{ route('ekskul.show', $item->nama) }}"><img src="{{ $item->foto }}" alt="" class="img-fluid rounded object-fit-cover"></a>
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">{{ $item->nama }}</h5>
                             </div>
@@ -25,5 +25,5 @@
         </div>
     </div>
 </section>
-    
+
 @endsection

@@ -31,9 +31,9 @@ Route::get('/Post_semua', [EkskulController::class, 'LSP'])->name('ekskul.lihatp
 Route::get('/login', [loginController::class, 'index'])->name('login');
 Route::post('/admin-login', [loginController::class, 'admin_login'])->name('admin-login');
 Route::get('/logout', [loginController::class, 'logout'])->name('logout');
-Route::resource('dashboard', postController::class);
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    Route::get('/admin', [PostController::class, 'index'])->name('admin');
     Route::get('/dashboard/{id}/edit', [PostController::class, 'edit'])->name('dashboard.edit');
     Route::patch('/dashboard/{id}', [PostController::class, 'update'])->name('dashboard.update');
     Route::get('/filter-posts', [PostController::class, 'filter'])->name('posts.filter');
@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'role:user']], function () {
+    Route::resource('dashboard', postController::class);
     Route::get('/users', [ProfileController::class, 'index'])->name('user.index');
     Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
     Route::post('/profile/store', [ProfileController::class, 'store'])->name('profile.store');
