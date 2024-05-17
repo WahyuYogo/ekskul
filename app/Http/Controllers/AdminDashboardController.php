@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Posts;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +27,7 @@ class AdminDashboardController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('dashboard.index')->with('success', 'Password updated successfully.');
+        return redirect()->view('dashboard.index')->with('success', 'Password Berhasil Diperbarui.');
     }
 
     public function deleteAccount($id)
@@ -34,6 +35,12 @@ class AdminDashboardController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('dashboard.index')->with('success', 'Account deleted successfully.');
+        return redirect()->route('admin')->with('success', 'Akun Telah Berhasil Terhapus.');
+    }
+
+    public function delete(string $id)
+    {
+        Posts::where('id', $id)->delete();
+        return redirect()->route('admin')->with('success', 'Post Berhasil di Hapus');
     }
 }

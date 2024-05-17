@@ -14,20 +14,20 @@ class EkskulController extends Controller
     {
         $posts = Posts::latest()->limit(4)->get();
         $profils = profil::latest()->limit(4)->get();
-        return view('landingpage.index', compact('posts', 'profils'));
+        return view('landingpage.index', compact('posts', 'profils',));
     }
 
     public function show($name)
     {
         $profils = profil::where('nama', $name)->firstOrfail();
-        $posts = Posts::where('ekskul', $profils->nama)->get();
+        $posts = Posts::where('ekskul', $profils->nama)->latest()->get();
         return view('ekskul.show', compact('profils', 'posts'));
     }
 
     public function post($name)
     {
         $profils = profil::where('nama', $name)->firstOrfail();
-        $posts = Posts::where('ekskul', $profils->nama)->get();
+        $posts = Posts::where('ekskul', $profils->nama)->latest()->paginate(9);
         return view('ekskul.post', compact('profils', 'posts'));
     }
 
@@ -38,7 +38,7 @@ class EkskulController extends Controller
     }
     public function LSP()
     {
-        $posts = Posts::paginate(10);
+        $posts = Posts::latest()->paginate(10);
         return view('ekskul.lihatpost', compact('posts'));
     }
 }

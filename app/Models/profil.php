@@ -21,6 +21,7 @@ class profil extends Model
         'nama',
         'tujuan',
         'keuntungan',
+        'link',
         'warna',
     ];
 }

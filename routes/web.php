@@ -34,9 +34,10 @@ Route::get('/logout', [loginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/admin', [PostController::class, 'index'])->name('admin');
-    Route::get('/dashboard/{id}/edit', [PostController::class, 'edit'])->name('dashboard.edit');
-    Route::patch('/dashboard/{id}', [PostController::class, 'update'])->name('dashboard.update');
-    Route::get('/filter-posts', [PostController::class, 'filter'])->name('posts.filter');
+    // Route::get('/dashboard/{id}/edit', [PostController::class, 'edit'])->name('dashboard.edit');
+    // Route::patch('/dashboard/{id}', [PostController::class, 'update'])->name('dashboard.update');
+    // Route::get('/filter-posts', [PostController::class, 'filter'])->name('posts.filter');
+    Route::delete('/admin/delete/{id}', [AdminDashboardController::class, 'delete'])->name('delete');
     Route::get('/register', [loginController::class, 'daftar'])->name('register');
     Route::post('/register', [loginController::class, 'register'])->name('register.submit');
     Route::get('/admin/edit-password/{id}', [AdminDashboardController::class, 'editPassword'])->name('admin.edit_password');
@@ -45,7 +46,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'role:user']], function () {
-    Route::resource('dashboard', postController::class);
+    Route::resource('dashboard', PostController::class);
     Route::get('/users', [ProfileController::class, 'index'])->name('user.index');
     Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
     Route::post('/profile/store', [ProfileController::class, 'store'])->name('profile.store');

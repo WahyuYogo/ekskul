@@ -16,9 +16,10 @@ class postController extends Controller
     public function index(Request $request)
     {
         $data = Posts::orderBy('ekskul', 'desc')->paginate(5);
-        $posts = Posts::paginate(8);
+        $posts = Posts::latest()->paginate(9);
         $users = User::all();
-        return view('dashboard.index', compact('posts', 'users'));
+        $semua = Posts::count();
+        return view('dashboard.index', compact('posts', 'users', 'semua'));
     }
 
     /**

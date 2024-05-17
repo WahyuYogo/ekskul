@@ -1,12 +1,21 @@
+<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 <style>
     .color{
-        background-color: #001F49;
-    }
+    background-color: #001F49;
+}
 </style>
 
 <nav class="navbar navbar-expand-lg color sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand ms-2" href="#"><img src="{{ asset('images/logo/logo.png') }}" style="max-width: 50px" alt=""></a>
+        @cannot('user_dashboard')
+            <a class="navbar-brand ms-2" href="/"><img src="{{ asset('images/logo/logo.png') }}" style="max-width: 50px" alt=""></a>
+        @endcannot
+        @can('user_dashboard')
+        <a href="{{ url('users') }}" class="btn btn-outline-info px-4 py-1 fw-bold">
+            <i class="bi bi-person-fill"></i> Profil
+            {{-- <img src="{{ asset($profiles->foto) }}" alt="" class="rounded-circle img-fluid border" style="max-width: 50px"> --}}
+        </a>
+        @endcan
       <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="bi bi-list fs-1 text-light"></i>
       </button>
@@ -21,9 +30,8 @@
           <li class="nav-item">
             <a class="nav-link text-white py-3 mx-2 fw-bold" href="{{ route('ekskul.lihatpost') }}">Terbaru</a>
           </li>
-          {{-- <li class="nav-item">
-            <a class="nav-link text-white py-3 mx-2 fw-bold" href="#">Recruit</a>
-          </li> --}}
+          <li class="nav-item align-self-center">
+        </li>
       </div>
     </div>
   </nav>

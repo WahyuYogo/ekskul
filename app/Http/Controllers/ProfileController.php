@@ -16,8 +16,9 @@ class ProfileController extends Controller
         $profile = $user->profile;
         $users = Auth::user()->name;
         $ekskul = $request->input('ekskul', $users);
-        $show = Posts::where('ekskul', $ekskul)->get();
+        $show = Posts::where('ekskul', $ekskul)->latest()->paginate(8);
         $jumlah = $show->count();
+        // $profiles = Profil::where('user_id', auth()->id())->firstOrFail();
         return view('user.index', compact('user', 'profile', 'show', 'jumlah'));
     }
 
@@ -101,12 +102,6 @@ class ProfileController extends Controller
 
         $profile->save();
 
-        return redirect()->route('user.index')->with('success', 'Profil berhasil diperbarui!');
-    }
-
-    public function delete()
-    {
-        auth()->user()->profile()->delete();
-        return redirect()->route('user.index');
+        return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui!');
     }
 }
