@@ -11,14 +11,29 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
 
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $user = auth()->user();
         $profile = $user->profile;
         $users = Auth::user()->name;
+
         $ekskul = $request->input('ekskul', $users);
-        $show = Posts::where('ekskul', $ekskul)->latest()->paginate(8);
+
+        $query = Posts::where('ekskul', $ekskul);
+
+        if ($request->has('filter_time')) {
+            $filter_time = $request->input('filter_time');
+
+            if ($filter_time == 'terbaru') {
+                $query->latest();
+            } elseif ($filter_time == 'terlama') {
+                $query->oldest();
+            }
+        }
+
+        $show = $query->latest()->paginate(9);
         $jumlah = $show->count();
-        // $profiles = Profil::where('user_id', auth()->id())->firstOrFail();
+
         return view('user.index', compact('user', 'profile', 'show', 'jumlah'));
     }
 
@@ -34,7 +49,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         if (!$user->profile) {
-            return view('profile.create');
+            return view('profile.create', compact('user'));
         } else {
             return redirect()->route('user.index');
         }
@@ -95,6 +110,10 @@ class ProfileController extends Controller
         $profile->warna = $request->warna;
 
         if ($request->hasFile('foto')) {
+            if ($profile->foto && file_exists(public_path($profile->foto))) {
+                unlink(public_path($profile->foto));
+            }
+
             $imageName = time() . '.' . $request->foto->extension();
             $request->foto->move(public_path('images'), $imageName);
             $profile->foto = '/images/' . $imageName;

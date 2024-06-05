@@ -17,6 +17,10 @@ class User extends Authenticatable
         return $this->hasOne(profil::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Posts::class);
+    }
     // public function posts()
     // {
     //     return $this->hasMany(Posts::class);
@@ -34,6 +38,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'suspended',
     ];
 
     /**

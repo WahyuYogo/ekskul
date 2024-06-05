@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Posts;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class postController extends Controller
@@ -15,10 +16,24 @@ class postController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Posts::orderBy('ekskul', 'desc')->paginate(5);
-        $posts = Posts::latest()->paginate(9);
-        $users = User::all();
+        $query = Posts::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('judul', 'like', '%' . $search . '%')
+                    ->orWhere('ekskul', 'like', '%' . $search . '%');
+            });
+        }
+
+        $query->whereHas('user', function ($q) {
+            $q->where('suspended', false);
+        });
+
+        $posts = $query->latest()->paginate(10);
+        $users = User::where('name', '!=', 'Admin')->get();
         $semua = Posts::count();
+
         return view('dashboard.index', compact('posts', 'users', 'semua'));
     }
 
@@ -49,6 +64,7 @@ class postController extends Controller
         $request->gambar->move(public_path('images'), $imageName);
 
         $post = new Posts;
+        $post->user_id = Auth::id();
         $post->judul = $request->judul;
         $post->ekskul = $request->ekskul;
         $post->gambar = '/images/' . $imageName;
@@ -90,17 +106,21 @@ class postController extends Controller
         $post = Posts::findOrFail($id);
 
         if ($request->hasFile('gambar')) {
+            if ($post->gambar && file_exists(public_path($post->gambar))) {
+                unlink(public_path($post->gambar));
+            }
+
             $imageName = time() . '.' . $request->gambar->extension();
             $request->gambar->move(public_path('images'), $imageName);
             $post->gambar = '/images/' . $imageName;
         }
 
+        $post->user_id = Auth::id();
         $post->judul = $request->judul;
         $post->ekskul = $request->ekskul;
         $post->save();
 
         return redirect()->route('user.index')->with('success', 'Post berhasil diperbarui.');
-
     }
 
     /**

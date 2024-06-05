@@ -18,14 +18,22 @@
             <h3 class="text-center fs-6 fst-normal mb-3">Silahkan Masukkan Password Baru Anda</h3>
             <div class="mb-3">
                 <label for="password" class="form-label fw-bold">Password</label>
-                <input class="form-control border-dark bg-secondary-subtle" type="password" name="password" id="password"
-                    required placeholder="Minimal 8 karakter">
+                <div class="position-relative">
+                    <input class="form-control border-dark bg-secondary-subtle" type="password" name="password"
+                        id="password" required placeholder="Minimal 8 karakter">
+                    <a type="button" class="btn position-absolute end-0 top-0" id="togglePassword"><i id="icon"
+                            class="bi bi-eye-slash"></i></a>
+                </div>
             </div>
 
             <div class="mb-3">
                 <label for="password_confirmation" class="form-label fw-bold">Konfirmasi Password</label>
-                <input class="form-control border-dark bg-secondary-subtle" type="password" name="password_confirmation"
-                    id="password_confirmation" required placeholder="Masukkan Kembali Password">
+                <div class="position-relative">
+                    <input class="form-control border-dark bg-secondary-subtle" type="password" name="password_confirmation"
+                        id="password_confirmation" required placeholder="Masukkan Kembali Password">
+                    <a type="button" class="btn position-absolute end-0 top-0" id="togglePasswords"><i id="icon"
+                            class="bi bi-eye-slash"></i></a>
+                </div>
             </div>
             <div class="row rwo-cols-2 g-1">
                 <div class="col d-grid">

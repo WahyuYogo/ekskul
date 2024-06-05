@@ -9,7 +9,7 @@
             <img src="{{ asset($profils->foto) }}" alt=""
                 class="rounded-circle img-fluid position-absolute top-0 start-0 translate-middle-y"
                 style="max-height: 120px; max-width: 120px;">
-            <h1 class="fw-bold fs-2 mb-3 mt-5">{{ $profils->nama }}</h1>
+            <h1 class="fw-bold fs-2 mb-3 mt-4">{{ $profils->nama }}</h1>
             <div class="bg-light rounded p-3 my-3">
                 <h1 class="fs-4 fw-bold">Tujuan</h1>
                 <p>{{ $profils->tujuan }}</p>
@@ -19,8 +19,13 @@
                 <p>{{ $profils->keuntungan }}</p>
             </div>
         </div>
-        <a href='{{ $profils->link }}' class="btn bg-light px-2 py-2 position-absolute top-0 end-0 mt-4 me-3"><i
-                class="bi bi-instagram fs-3"></i></a>
+        @if (!empty($profils->link))
+            <a href="{{ $profils->link }}" target="_blank"
+                class="btn bg-light px-2 py-2 position-absolute top-0 end-0 mt-4 me-3">
+                <i class="bi bi-instagram fs-3"></i>
+            </a>
+        @endif
+
         <a href='{{ url('/') }}' class="btn position-absolute top-0 start-0 mt-3 ms-3"><i
                 class="bi bi-arrow-left-square-fill fs-1 text-light"></i></a>
     </div>
@@ -34,7 +39,7 @@
                         <img src="{{ $item->gambar }}" class="img-fluid rounded object-fit-cover" style="height: 300px"
                             alt="..." data-bs-toggle="modal" data-bs-target="#{{ $item->gambar }}">
                         <div class="card-body">
-                            {{-- <p class="card-title text-secondary">{{ $item->ekskul }}</p> --}}
+                            <p class="card-title text-secondary">{{ $item->ekskul }}</p>
                             @php
                                 $judul = $item->judul;
                                 $short_judul = Str::limit($judul, 30);
@@ -53,6 +58,8 @@
                                 <p>{{ $judul }}</p>
                             @endif
                             {{-- <p class="card-text fw-bold fs-5">{{ $item->judul }}</p> --}}
+                            <span class="card-title fs-6 text-secondary bg-success-subtle px-1 rounded float-end"><i
+                                    class="bi bi-clock"></i> {{ $item->created_at->diffForHumans() }}</span>
                         </div>
                     </div>
                 </div>

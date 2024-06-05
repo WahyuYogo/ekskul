@@ -1,6 +1,6 @@
-@extends('layout.template')
+@extends('layout.side')
 
-@section('konten')
+@section('konten2')
     @if (session('error'))
         <div class="alert alert-danger">
             {{ session('errors') }}

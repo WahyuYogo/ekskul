@@ -18,7 +18,7 @@
                 <div class="mb-3 row">
                     <div class="col-sm-10 d-none">
                         <select class="form-control" id="ekskul" name="ekskul">
-                            <option value="{{ $user->name }}">{{ $user->name }}</< /option>
+                            <option value="{{ $user->name }}">{{ $user->name }}</option>
                         </select>
                     </div>
                 </div>

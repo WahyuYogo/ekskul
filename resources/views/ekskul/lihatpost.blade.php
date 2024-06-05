@@ -11,8 +11,15 @@
             <div class="text-dark my-5 text-center">
                 <h3 class="fw-bold">Postingan Terbaru</h3>
             </div>
+            <form action="{{ route('ekskul.lihatpost') }}" method="GET" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Cari Postingan..."
+                        value="{{ request('search') }}">
+                    <button class="btn btn-primary" type="submit">Cari</button>
+                </div>
+            </form>
             <div class="row row-cols-lg-2">
-                @foreach ($posts as $item)
+                @forelse ($posts as $item)
                     <div class="col-12 mb-4">
                         <div class="card border-0 shadow-sm">
                             <img src="{{ $item->gambar }}" class="img-fluid rounded object-fit-cover" style="height: 300px"
@@ -37,6 +44,8 @@
                                     <p>{{ $judul }}</p>
                                 @endif
                                 {{-- <p class="card-text fw-bold fs-5">{{ $item->judul }}</p> --}}
+                                <span class="card-title fs-6 text-secondary bg-success-subtle px-1 rounded float-end"><i
+                                        class="bi bi-clock"></i> {{ $item->created_at->diffForHumans() }}</span>
                             </div>
                         </div>
                     </div>
@@ -56,7 +65,11 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="container">
+                        <p class="text-center bg-danger-subtle py-3 rounded fw-bold">Tidak ada post yang tersedia.</p>
+                    </div>
+                @endforelse
             </div>
             {{ $posts->links() }}
         </div>

@@ -17,29 +17,35 @@
             @csrf
             @method('PATCH')
             <div class="mb-3">
-                <label class="form-label fw-bold" for="foto">Foto Profil</label>
+                <label class="form-label fw-bold d-block" for="foto">Foto Profil</label>
                 <img class="rounded mb-2 img-fluid" id="hasil" src="{{ $profile->foto }}" alt="Preview">
                 <label class="form-control border-dark bg-secondary-subtle" for="foto">Pilih Foto</label>
                 <input class="d-none" type="file" name="foto" id="foto" value="{{ $profile->foto }}"
                     accept="image/*">
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 d-none">
                 <label class="form-label fw-bold" for="nama">Nama</label>
                 <input class="form-control border-dark bg-secondary-subtle" type="text" name="nama"
                     value="{{ $profile->nama }}" id="nama" required>
             </div>
 
             <div class="mb-3">
+                <label class="form-label fw-bold" for="warna">Background Profil</label>
+                <input class="form-control border-dark bg-secondary-subtle" type="color" name="warna"
+                    value="{{ $profile->warna }}" id="warna" required>
+            </div>
+
+            <div class="mb-3">
                 <label class="form-label fw-bold" for="tujuan">Tujuan</label>
-                <input class="form-control border-dark bg-secondary-subtle" type="text" name="tujuan"
-                    value="{{ $profile->tujuan }}" id="tujuan" required>
+                <textarea rows="5" class="form-control border-dark bg-secondary-subtle" type="text" name="tujuan"
+                    id="tujuan" required>{{ $profile->tujuan }}</textarea>
             </div>
 
             <div class="mb-3">
                 <label class="form-label fw-bold" for="keuntungan">Keuntungan</label><br>
-                <input class="form-control border-dark bg-secondary-subtle" name="keuntungan"
-                    value="{{ $profile->keuntungan }}" id="keuntungan" required>
+                <textarea rows="5" class="form-control border-dark bg-secondary-subtle" name="keuntungan" id="keuntungan"
+                    required>{{ $profile->keuntungan }}</textarea>
             </div>
 
             <div class="mb-3">
@@ -48,11 +54,6 @@
                     value="{{ $profile->link }}" id="link" placeholder="Opsional">
             </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-bold" for="warna">Warna Profil</label>
-                <input class="form-control border-dark bg-secondary-subtle" type="color" name="warna"
-                    value="{{ $profile->warna }}" id="warna" required>
-            </div>
             <div class="">
                 <a href="{{ route('profile.show') }}" class="btn btn-danger me-1">Kembali</a>
                 <button class="btn btn-primary" type="submit">Simpan</button>

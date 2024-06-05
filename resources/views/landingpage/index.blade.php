@@ -15,7 +15,10 @@
                     <div class="col-12 order-lg-1 align-self-center text-lg-start text-center">
                         <h5 class="text-warning">EKSTRAKULIKULER</h5>
                         <h1 class="text-light fw-bold">SMKN 1 BANGSRI</h1>
-                        <p class="text-light">Ayo Bergabung Dan Temukan Bakatmu Bersama Kami!!</p>
+                        {{-- <p class="text-light animated-text" id="toggleText">Ayo Bergabung Dan Temukan Bakatmu Bersama Kami
+                            !!</p> --}}
+                        <p class="text-light">Ayo Bergabung Dan Temukan Bakatmu Bersama Kami
+                            !!</p>
                         <a href="#ekskul" class="btn btn-warning fw-bold fs-5 rounded-pill py-2 px-5">GABUNG</a>
                     </div>
                 </div>
@@ -57,8 +60,9 @@
                 <h3 class="fw-bold">Postingan Terbaru</h3>
                 <a href="{{ route('ekskul.lihatpost') }}" class="fs-5 ms-auto text-dark">Lihat Semua >></a>
             </div>
+            {{-- @if ($posts->count() > 0) --}}
             <div class="row row-cols-lg-2">
-                @foreach ($posts as $item)
+                @forelse ($posts as $item)
                     <div class="col-12 mb-4">
                         <div class="card border-0 shadow-sm">
                             <img src="{{ $item->gambar }}" class="img-fluid rounded object-fit-cover" style="height: 300px"
@@ -104,11 +108,67 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="container">
+                        <p class="text-center bg-danger-subtle py-3 rounded fw-bold">Tidak ada post yang tersedia.</p>
+                    </div>
+                @endforelse
             </div>
+            {{-- @else
+                <p class="text-center bg-danger-subtle py-3 rounded fw-bold">Tidak ada post yang tersedia.</p>
+            @endif --}}
         </div>
     </section>
 
+
+    <style>
+        .animated-text {
+            animation: changeText 5s infinite;
+        }
+
+        @keyframes changeText {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            60% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .animated-text:hover::before {
+            opacity: 0;
+        }
+
+        .animated-text:hover::after {
+            opacity: 1;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleText = document.getElementById('toggleText');
+            const originalText = 'Ayo Bergabung Dan Temukan Bakatmu Bersama Kami !!';
+            const newText = 'Ayo gabung lan temokake bakat sampeyan sareng kita !!';
+            let isOriginal = true;
+
+            setInterval(function() {
+                if (isOriginal) {
+                    toggleText.innerText = newText;
+                } else {
+                    toggleText.innerText = originalText;
+                }
+                isOriginal = !isOriginal;
+            }, 4900);
+        });
+    </script>
 
 
 @endsection

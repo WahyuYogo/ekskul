@@ -10,14 +10,16 @@ use Spatie\Permission\Models\Role;
 
 class loginController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('auth.login');
     }
-    public function admin_login(Request $request){
+    public function admin_login(Request $request)
+    {
         $request->validate([
             'email' => 'required',
             'password' => 'required'
-        ],[
+        ], [
             'email.required' => 'Email Wajib Diisi',
             'password.required' => 'Password Wajib Diisi',
         ]);
@@ -25,6 +27,13 @@ class loginController extends Controller
         $infologin = $request->only('email', 'password');
 
         if (Auth::attempt($infologin)) {
+            // Check if the user is suspended
+            if (Auth::user()->suspended) {
+                Auth::logout();
+                return redirect()->route('login')->with('failed', 'Akun Anda telah diberhentikan, Silahkan hubungi admin.');
+            }
+
+            // Check the user's role and redirect accordingly
             if (Auth::user()->hasRole('admin')) {
                 return redirect()->route('admin');
             } else {
@@ -36,7 +45,8 @@ class loginController extends Controller
 
 
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect()->route('login')->with('success', 'Berhasil Logout');
     }
@@ -51,16 +61,16 @@ class loginController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:8|confirmed',
         ]);
         $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
         $user->assignRole('user');
 
-        return redirect()->route('login')->with('success', 'Akun berhasil dibuat! Silakan login.');
+        return redirect()->route('admin')->with('success', 'Akun berhasil dibuat!');
     }
 }

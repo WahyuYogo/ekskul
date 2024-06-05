@@ -27,7 +27,7 @@ class AdminDashboardController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->view('dashboard.index')->with('success', 'Password Berhasil Diperbarui.');
+        return redirect()->route('admin')->with('success', 'Password Berhasil Diperbarui.');
     }
 
     public function deleteAccount($id)
@@ -42,5 +42,23 @@ class AdminDashboardController extends Controller
     {
         Posts::where('id', $id)->delete();
         return redirect()->route('admin')->with('success', 'Post Berhasil di Hapus');
+    }
+
+    public function suspend($id)
+    {
+        $user = User::findOrFail($id);
+        $user->suspended = true;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Pengguna berhasil ditangguhkan.');
+    }
+
+    public function unsuspend($id)
+    {
+        $user = User::findOrFail($id);
+        $user->suspended = false;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Pengguna berhasil diaktifkan kembali.');
     }
 }

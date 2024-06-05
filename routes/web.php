@@ -34,18 +34,17 @@ Route::get('/logout', [loginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/admin', [PostController::class, 'index'])->name('admin');
-    // Route::get('/dashboard/{id}/edit', [PostController::class, 'edit'])->name('dashboard.edit');
-    // Route::patch('/dashboard/{id}', [PostController::class, 'update'])->name('dashboard.update');
-    // Route::get('/filter-posts', [PostController::class, 'filter'])->name('posts.filter');
     Route::delete('/admin/delete/{id}', [AdminDashboardController::class, 'delete'])->name('delete');
     Route::get('/register', [loginController::class, 'daftar'])->name('register');
     Route::post('/register', [loginController::class, 'register'])->name('register.submit');
     Route::get('/admin/edit-password/{id}', [AdminDashboardController::class, 'editPassword'])->name('admin.edit_password');
+    Route::post('/admin/users/{id}/suspend', [AdminDashboardController::class, 'suspend'])->name('admin.users.suspend');
+    Route::post('/admin/users/{id}/unsuspend', [AdminDashboardController::class, 'unsuspend'])->name('admin.users.unsuspend');
     Route::put('/admin/update-password/{id}', [AdminDashboardController::class, 'updatePassword'])->name('admin.update_password');
     Route::delete('/admin/delete-account/{id}', [AdminDashboardController::class, 'deleteAccount'])->name('admin.delete_account');
 });
 
-Route::group(['middleware' => ['auth', 'role:user']], function () {
+Route::group(['middleware' => ['auth', 'role:user', 'suspended']], function () {
     Route::resource('dashboard', PostController::class);
     Route::get('/users', [ProfileController::class, 'index'])->name('user.index');
     Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
