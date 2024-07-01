@@ -31,10 +31,15 @@ class postController extends Controller
         });
 
         $posts = $query->latest()->paginate(10);
-        $users = User::where('name', '!=', 'Admin')->get();
         $semua = Posts::count();
 
-        return view('dashboard.index', compact('posts', 'users', 'semua'));
+        return view('dashboard.index', compact('posts', 'semua'));
+    }
+    public function list(Request $request)
+    {
+        $users = User::where('name', '!=', 'Admin')->get();
+
+        return view('dashboard.list', compact('users'));
     }
 
     /**

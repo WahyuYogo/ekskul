@@ -34,6 +34,7 @@ Route::get('/logout', [loginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/admin', [PostController::class, 'index'])->name('admin');
+    Route::get('/list', [PostController::class, 'list'])->name('list');
     Route::delete('/admin/delete/{id}', [AdminDashboardController::class, 'delete'])->name('delete');
     Route::get('/register', [loginController::class, 'daftar'])->name('register');
     Route::post('/register', [loginController::class, 'register'])->name('register.submit');
